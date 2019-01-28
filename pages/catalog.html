@@ -1,0 +1,45 @@
+<div class="catalog-header">
+    
+    <h1 class="catalog-name pull-left">
+    {% if category.parent == 1 %}
+        PAPEL DE PAREDE 
+    {% elseif category.parent == 3 %}
+        ADESIVOS DE PAREDE 
+    {% endif %}
+    {{ category.name }}
+    </h1>
+    
+    <div class="catalog-top-filter pull-right">
+        {% element 'snippets/filter' %}
+    </div>
+    
+    <p class="paginate-counter clearfix">{{ paginate.counter('Resultado <b>{:count} produto(s)</b> em <b>{:pages} p&aacute;gina(s)</b>') }}</p>
+    <div class="filter-ad">
+        <span><i class="fa fa-filter" aria-hidden="true"></i> Filtrar</span>
+    </div>
+</div>
+
+{% if products|length > 0 %}
+
+    <div class="catalog-content row">
+        {% element 'showcase-catalog' {
+            "products": products
+        } %}
+    </div>
+
+    <div class="catalog-footer pagination">
+        {% element 'snippets/paginate' %}
+    </div> 
+    
+    <div class="div_small_desc">
+        {{ category.small_description }}
+    </div> 
+
+{% else %}
+    
+    <div class="catalog-empty">
+        <img src="{{ asset('img/catalog-empty.svg') }}" alt="Sem produtos" width="150" height="150">
+        <p>{{ Translation('nenhum_resultado') }}</p>
+    </div>
+
+{% endif %}

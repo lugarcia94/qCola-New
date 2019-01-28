@@ -1,0 +1,17 @@
+{% if products|length > 0 %}
+
+    {% if showcaseTitle %}
+        <h4 class="showcase-title"><span>{{ showcaseTitle }}</span></h4>
+    {% endif %}
+
+    <div id="showcase-owl" class="owl-carousel owl-theme owl-product">
+    
+        {% for product in products %}
+
+            {% element 'snippets/product' {"product": product} %}
+
+        {% endfor %}
+
+    </div>
+
+{% endif %}

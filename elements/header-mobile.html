@@ -1,0 +1,35 @@
+<header id="header">
+    <div class="up-top"></div>
+    <div class="main-top">
+        <div class="container">
+
+            <div class="menu-mobile pull-left">
+                <i class="ad-icon ad-todas" aria-hidden="true"></i>
+                <div class="menu superior"> 
+                    {% element 'snippets/menu-mobile' %}
+                </div>
+            </div>
+            <div class="options-topo pull-right">
+                <ul class="list-inline">
+                    <li class="btn-search">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </li>
+                    <li class="cart">{% element 'snippets/cart' %}</li>
+                </ul>
+            </div>
+            <div class="brand">
+                <a href="{{ links.home }}" data-tray-tst="logotipo_loja">
+                    <img src="{{ asset('img/theme/marca.png') }}" alt="Marca" >
+                </a>
+            </div>
+
+        </div>
+    </div>
+    {% element 'snippets/search' %}
+    <div style="background:#dc0404; color:#ffffff; text-align:center">
+        <div class="container">
+        <p style="font-size:14px; color:#fdfd02">Use cupom <b>CHAT20</b> p/ ter 20% de DESCONTO!</p>
+        <p style="font-size:12px">Frete Grátis compras acima R$ 150 regiões Sul/Sudeste.</p>
+        </div>
+    </div>
+</header><!-- /header -->

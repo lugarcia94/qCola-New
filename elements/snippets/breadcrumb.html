@@ -1,0 +1,15 @@
+<div class="breadcrumb">
+    <span class="breadcrumb-item"><a href="{{ links.home }}">Pagina Inicial</a></span>
+    {% if breadcrumb %}
+    {% for item in breadcrumb %}
+      <span class="breadcrumb-item">
+        <a href="{{ item.link}}" title="{{ item.name }}">{{ item.name }}</a>
+      </span>
+    {% endfor %}
+    {% endif %}
+    {% if pages.current == 'product' %}
+    <span class="breadcrumb-item">{{ product.name }}</span>
+    {% else %}
+    <span class="breadcrumb-item">{{ category.name }}</span>
+    {% endif %}
+</div>

@@ -1,0 +1,82 @@
+{% set smartPages = ['catalog', 'search'] %}
+
+{% if filters and pages.current in smartPages %}
+<form name="form-filter" method="get">
+    <input type="hidden" name="loja" value="{{ store.id }}">
+    {% if search.word %}
+      <input name="palavra_busca" type="hidden" value="{{ search.word }}">
+    {% endif %}
+
+    {% if category.id %}
+        <input type="hidden" name="categoria" value="{{ category.id }}">
+    {% endif %}
+
+    {% if filters.applied %}
+        <h3>Filtros Aplicados</h3>
+        <ul>
+            {% for applied in filters.applied %}
+                {% for item in applied %}
+                    <li>
+                    <a href="{{ item.url }}">{{ item.title }}</a>
+                    </li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% for myFilter in filters %}
+
+        {% if myFilter.items %}
+
+            <h3>{{ myFilter.title }}</h3>
+            <ul>
+            {% for item in myFilter.items %}
+                <li>
+                    {% if item.type == "link" %}
+                        <a href="{{ item.url }}">{{ item.title }}</a>
+                    {% endif %}
+
+                    {% if item.type == "checkbox" %}
+                        <label>
+                            {% set checked = item.applied ? 'checked="checked"' %}
+                            <input type="checkbox" name="{{ item.name }}" value="{{ item.value }}" {{ checked }} />
+                            {{ item.title }}
+                        </label>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+
+        {% elseif myFilter|length %}
+
+           {% for var in myFilter %}
+
+               <h3>{{ var.title }}</h3>
+               <ul>
+                   {% for item in var.items %}
+                   <li>
+                       {% if item.type == "link" %}
+                       <a href="{{ item.url }}">{{ item.title }}</a>
+                       {% endif %}
+
+                       {% if item.type == "checkbox" %}
+                       <label>
+                           {% set checked = item.applied ? 'checked="checked"' %}
+                           <input type="checkbox" name="{{ item.name }}" value="{{ item.value }}" {{ checked }} />
+                           {{ item.title }}
+                       </label>
+                       {% endif %}
+                   </li>
+                   {% endfor %}
+               </ul>
+
+           {% endfor %}
+
+        {% endif %}
+
+    {% endfor %}
+
+    <button type="submit" class="filter-button">{{ Translation('filtrar') }}</button>
+</form>
+
+{% endif %}

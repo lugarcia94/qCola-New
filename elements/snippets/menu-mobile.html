@@ -1,0 +1,45 @@
+ <div class="menu-mobile visible-xs-block">  
+    <div class="close-menu"><b class="fechar">X</b><!--<i class="ad-icon ad-close"></i>--></div>
+    <ul class="nivel-um">
+        {% for category in categories %}
+            {% if loop.index <= limit or not limit %}
+            {% set children = category.children %}
+            <li class="category-id-{{ category.id }} {% if children %}com-filho{% endif %}">
+                <a href="{{ category.link }}">
+                    <!-- retirei do "i aria etc a baixo" o codigo "class="ad-icon ad-id-{{ category.id }}"" -->
+                    <i aria-hidden="true"></i>
+                    {{ category.name }}
+                </a>
+                
+                {% if children %}
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                    <ul class="nivel-dois">
+                        {% for child in children %}
+                            <li>
+                                <a href="{{ child.link }}">{{ child.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <div class="login">
+        <span class="tray-hide" data-logged-user="true">
+            <a href="{{ links.account }}">
+                <i class="ad-icon ad-profile"></i>
+                Meu Perfil
+            </a>
+        </span>
+        <span class="tray-hide" data-logged-user="false">
+            <a href="{{ links.login }}" data-tray-tst="login" class="{{ utils.is_https ? 'modal-login' }}">
+                <i class="ad-icon ad-profile"></i>
+                Login
+            </a>
+        </span>
+    </div>
+    <!--<div class="copyright">
+        <p>QCOLA © Todos os direitos reservados. 2018</p>
+    </div>-->
+</div>

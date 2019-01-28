@@ -1,0 +1,14 @@
+{% if settings.structure == 1 %}
+<aside class="sidebar col-xs-12 col-md-3">
+{% elseif settings.structure == 2%}
+<aside class="sidebar col-xs-12 col-md-3 pull-right">
+{% endif %}
+    
+    <div class="fechar">
+    	<span><i class="fa fa-times" aria-hidden="true"></i> Fechar</span>
+    </div>
+
+    {% element 'snippets/smart-filter' %}
+    
+    
+</aside>

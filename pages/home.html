@@ -1,0 +1,286 @@
+{% if settings.limitProducts %}
+    {% set limitProducts = settings.limitProducts %}
+{% else %}
+    {% set limitProducts = 12 %}
+{% endif %}
+
+{% set showAvailable = settings.show_available_products ? 'available' %}
+
+{% if showAvailable %}
+    {% if settings.showcase == "top_seller" %}
+    <div id="prognoos_popv1"></div> 
+    
+        {% set products = Products({
+            'filter': showAvailable,
+            'limit': limitProducts,
+            'order': {'quantity_sold': 'desc'}
+        }) %}    
+    
+    {% else %}
+        {% set products = Products({
+            'filter': [showAvailable, settings.showcase],
+            'limit': limitProducts,
+            'order': {'quantity_sold': 'desc'}
+        }) %}
+    {% endif %}
+    
+{% else %}
+    {% if settings.showcase == "top_seller" %}
+    <div id="prognoos_popv1"></div>
+    
+        {% set products = Products({
+            'filter': available,
+            'limit': limitProducts,
+            'order': {'quantity_sold': 'desc'}
+        }) %}      
+    {% else %}
+        {% set products = Products({
+            'filter': settings.showcase,
+            'limit': limitProducts,
+            'order': {'quantity_sold': 'desc'}
+        }) %}
+    {% endif %}
+{% endif %}
+                    
+{% element 'snippets/showcase-owl' { 
+    "products": products,
+    "showcaseTitle": 'Mais Vendidos'
+} %}
+
+
+<div class="other-banners hidden-xs">
+    {{ banner.extra4 }}
+</div>
+
+<!-- 
+    Vitrine 2
+     -->
+<div class="hidden-xs">
+    {% if settings.limitProducts %}
+        {% set limitProducts = settings.limitProducts %}
+    {% else %}
+        {% set limitProducts = 12 %}
+    {% endif %}
+
+    {% set showAvailable = settings.show_available_products ? 'available' %}
+
+    {% if showAvailable %}
+        {% if settings.showcase == "top_seller" %}
+        <div id="prognoos_popv1"></div> 
+        
+            {% set products = Products({
+                'filter': showAvailable,
+                'limit': limitProducts,
+                'order': 'rand'
+            }) %}    
+        
+        {% else %}
+            {% set products = Products({
+                'filter': [showAvailable, settings.showcase],
+                'limit': limitProducts,
+                'order': 'rand'
+            }) %}
+        {% endif %}
+        
+    {% else %}
+        {% if settings.showcase == "top_seller" %}
+        <div id="prognoos_popv1"></div>
+        
+            {% set products = Products({
+                'filter': available,
+                'limit': limitProducts,
+                'order': 'rand'
+            }) %}      
+        {% else %}
+            {% set products = Products({
+                'filter': settings.showcase,
+                'limit': limitProducts,
+                'order': 'rand'
+            }) %}
+        {% endif %}
+    {% endif %}
+                        
+    {% element 'snippets/showcase-owl2' { 
+        "products": products,
+        "showcaseTitle": 'Novos Produtos'
+    } %}
+</div>
+
+<!-- 
+    Vitrine 5
+     -->
+
+<!--<div class="hidden-xs">-->
+    {% if settings.limitProducts %}
+        {% set limitProducts = settings.limitProducts %}
+    {% else %}
+        {% set limitProducts = 12 %}
+    {% endif %}
+
+    {% set showAvailable = settings.show_available_products ? 'available' %}
+
+    {% if showAvailable %}
+        {% if settings.showcase == "top_seller" %}
+        <div id="prognoos_popv1"></div> 
+        
+            {% set products = Products({
+                'filter': showAvailable,
+                'limit': limitProducts,
+                'order': {'quantity_sold': 'desc'},
+                'categories': [3],
+            }) %}    
+        
+        {% else %}
+            {% set products = Products({
+                'filter': [showAvailable, settings.showcase],
+                'limit': limitProducts,
+                'order': 'rand',
+                'categories': [3],
+            }) %}
+        {% endif %}
+        
+    {% else %}
+        {% if settings.showcase == "top_seller" %}
+        <div id="prognoos_popv1"></div>
+        
+            {% set products = Products({
+                'filter': available,
+                'limit': limitProducts,
+                'order': {'quantity_sold': 'desc'},
+                'categories': [3],
+            }) %}      
+        {% else %}
+            {% set products = Products({
+                'filter': settings.showcase,
+                'limit': limitProducts,
+                'order': 'rand',
+                'categories': [3],
+            }) %}
+        {% endif %}
+    {% endif %}
+                        
+    {% element 'snippets/showcase-owl5' { 
+        "products": products,
+        "showcaseTitle": 'ADESIVOS DE PAREDE'
+    } %}
+
+    {% if pages.current == 'home' %}
+        {{ banner.popup ~ banner.floating }}
+    {% endif %}
+<!--</div>-->
+
+<!-- 
+    Vitrine 3
+     -->
+     
+{% if settings.limitProducts %}
+    {% set limitProducts = settings.limitProducts %}
+{% else %}
+    {% set limitProducts = 12 %}
+{% endif %}
+
+{% set showAvailable = settings.show_available_products ? 'available' %}
+
+{% if showAvailable %}
+    {% if settings.showcase == "top_seller" %}
+    <div id="prognoos_popv1"></div> 
+    
+        {% set products = Products({
+            'filter': showAvailable,
+            'limit': limitProducts,
+            'order': {'quantity_sold': 'desc'},
+            'categories': [131],
+        }) %}    
+    
+    {% else %}
+        {% set products = Products({
+            'filter': [showAvailable, settings.showcase],
+            'limit': limitProducts,
+            'order': 'rand',
+            'categories': [131],
+        }) %}
+    {% endif %}
+    
+{% else %}
+    {% if settings.showcase == "top_seller" %}
+    <div id="prognoos_popv1"></div>
+    
+        {% set products = Products({
+            'filter': available,
+            'limit': limitProducts,
+            'order': {'quantity_sold': 'desc'},
+            'categories': [131],
+        }) %}      
+    {% else %}
+        {% set products = Products({
+            'filter': settings.showcase,
+            'limit': limitProducts,
+            'order': 'rand',
+            'categories': [131],
+        }) %}
+    {% endif %}
+{% endif %}
+                    
+{% element 'snippets/showcase-owl3' { 
+    "products": products,
+    "showcaseTitle": 'Azulejos'
+} %}
+
+<!-- 
+    Vitrine 4
+     -->
+
+<!--<div class="hidden-xs">-->
+    {% if settings.limitProducts %}
+        {% set limitProducts = settings.limitProducts %}
+    {% else %}
+        {% set limitProducts = 12 %}
+    {% endif %}
+
+    {% set showAvailable = settings.show_available_products ? 'available' %}
+
+    {% if showAvailable %}
+        {% if settings.showcase == "top_seller" %}
+        <div id="prognoos_popv1"></div> 
+        
+            {% set products = Products({
+                'filter': showAvailable,
+                'limit': limitProducts,
+                'order': {'quantity_sold': 'desc'},
+                'categories': [87],
+            }) %}    
+        
+        {% else %}
+            {% set products = Products({
+                'filter': [showAvailable, settings.showcase],
+                'limit': limitProducts,
+                'order': 'rand',
+                'categories': [87],
+            }) %}
+        {% endif %}
+        
+    {% else %}
+        {% if settings.showcase == "top_seller" %}
+        <div id="prognoos_popv1"></div>
+        
+            {% set products = Products({
+                'filter': available,
+                'limit': limitProducts,
+                'order': {'quantity_sold': 'desc'},
+                'categories': [87],
+            }) %}      
+        {% else %}
+            {% set products = Products({
+                'filter': settings.showcase,
+                'limit': limitProducts,
+                'order': 'rand',
+                'categories': [87],
+            }) %}
+        {% endif %}
+    {% endif %}
+                        
+    {% element 'snippets/showcase-owl4' { 
+        "products": products,
+        "showcaseTitle": 'Espelhos'
+    } %}
+<!--</div>-->

@@ -1,0 +1,74 @@
+{% set checkout = "checkout" in pages.current ? "true" : "false" %}
+
+{% if pages.current == 'home' %} 
+    <div class="box-newsletter visible-xs visible-sm">
+        {% element 'snippets/box-news' %}
+    </div>
+{% endif %}
+<footer id="footer">
+    <div class="container">
+        <div class="top-footer row">
+            <div class="col-xs-12 col-sm-3 col-md-2 links-footer">
+                <h3 class="title-footer">Categorias {% if utils.is_mobile %}<i class="fa fa-plus" aria-hidden="true"></i>{% endif %}</h3>
+                {% element 'snippets/categories_list' %}
+            </div>
+            <div class="col-xs-12 col-sm-3 col-md-2 links-footer">
+                <h3 class="title-footer">Ajuda {% if utils.is_mobile %}<i class="fa fa-plus" aria-hidden="true"></i>{% endif %}</h3>
+                <ul>
+                    <li><a href="/quem-somos" title="Quem Somos">Quem Somos</a></li>
+                    <li><a href="/como-aplicar" title="Como Aplicar">Como Aplicar</a></li>
+                    <li><a href="{{ links.contact }}" title="Fale Conosco">Fale Conosco</a></li>
+                    <li><a href="/trocas-e-devolucoes" title="Troca e devolução">Política de Trocas</a></li>
+                    <li><a href="/politica-frete-gratis" title="Política de Frete Grátis">Política de Frete Grátis</a></li>
+                    <li><a href="/duvidas" title="Tire suas dúvidas">Tire suas dúvidas</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 links-footer">
+                <h3 class="title-footer">Fale Conosco {% if utils.is_mobile %}<i class="fa fa-plus" aria-hidden="true"></i>{% endif %}</h3>
+                <ul>
+                    <li class="destaque">{{ Translation('ag_telefone_1') }} {% if Translation('ag_telefone_2') != '' %}| {{ Translation('ag_telefone_2') }}{% endif %}</li>
+                    {% if Translation('ag_email_1') != '' %}
+                        <li class="destaque">{{ Translation('ag_email_1') }}</li>
+                    {% endif %}
+                    {% if Translation('ag_atendimento') != '' %}
+                        <li>Horário de Atendimento</li>
+                        <li>{{ Translation('ag_atendimento') }}</li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="hidden-xs hidden-sm col-md-5 box-newsletter">
+                {% element 'snippets/box-news' %}
+            </div>
+        </div>
+        <div class="bottom-footer row">
+            <div class="col-xs-12 col-sm-4">
+                <h3 class="title-footer">Formas de pagamento</h3>
+                {% element 'snippets/payment-list' %}
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <h3 class="title-footer">Selos</h3>
+                {% if seals.ebit or seals.hackersafe %}
+                    <ul class="foo-seals">
+                        {% if seals.ebit %}
+                            <li class="seal-ebit pull-left">{{ seals.ebit }}</li>
+                        {% endif %}
+                        {% if seals.hackersafe %}
+                            <li>{{ seals.hackersafe }}</li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="hidden-xs col-sm-4 social">
+                <h3 class="title-footer">Siga-nos</h3>
+                <p class="subtitle-footer">Acompanhe nossas redes sociais:</p>
+                {% element 'snippets/social-list' %}
+                <a href="http://blog.qcola.com.br/" target="_blank" class="alinha-blog1">
+            <img src="https://uploaddeimagens.com.br/images/001/847/636/full/bloazul.jpg?1548093150">
+            </a>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>QCOLA © Todos os direitos reservados. 2018</p>
+    </div>
+</footer>

@@ -1,0 +1,235 @@
+{% spaceless %}
+<!doctype html>
+<html lang="pt-br" data-theme="{{ settings.extension_id }}" data-store="{{ store.id }}" class="page-{{ pages.current }}">
+    <head>
+
+        <!-- tray charset -->
+        {{ html.charset() }}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- tray meta tags -->
+        {{ tray.meta }}
+        
+        <!-- tray styles -->
+        {{ tray.styles }}
+        
+        {%  element 'trustvox-style' %}
+        
+        <!-- theme styles -->
+        <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Prompt:100,300,400,600,700" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
+        
+        <style>
+            {{ settings.custom_css }}
+        </style>
+        
+        <!-- tray analytics -->
+        {{ tray.analytics }}
+        
+        
+        <!-- google tag manager -->
+        {{ googleTagManager.header(pages.current, tagManagerData) }}
+    </head>
+    <body itemscope itemtype="http://schema.org/WebPage" class="{% if pages.current == 'home' %}pag-home{% endif %}{% if pages.current == 'catalog' %}page-catalog{% endif %} {% if pages.current == 'checkout_cart' %}page-cart{% endif %} {% if pages.current == 'checkout_payment' %}page-payment{% endif %} {% if pages.current == 'login' %}page-login{% endif %} {% if pages.current == 'register' %}page-user{% endif %} {% if pages.custom %}pag-extra{% endif %}">
+        
+        {% if pages.current == 'product' %}
+        	{%  element 'trustvox-widget' %}
+        {% endif %}
+        
+        {{ googleTagManager.top(pages.current, tagManagerData) }}
+        
+        {% element 'snippets/messages' %}
+        
+        {% if utils.is_mobile %}
+            {% element 'header-mobile' %}
+        {% else %}
+            {% element 'header' %}
+        {% endif %}
+        
+        <main class="site-main">
+            {% if pages.current == 'home' %}
+            <div class="newsletter_subscribe hidden hidden-xs">
+                <div class="middle">
+                    <img src="{{ asset('img/news-img.png') }}" alt="">
+                    <div class="conteudo-light">
+                        <span class="btn-close">x</span>
+                        <div class="return__json">
+                                    
+                        </div>
+                        <div class="conteudo__cupom">
+                            {{ settings.cupom }}
+                        </div>
+                        <div class="conteudo-light-textos">
+                            <img src="{{ asset('img/theme/marca.png') }}">
+                            <span>Cadastre-se e ganhe</span>
+                            <h3>5% de desconto</h3>
+                            <form action="{{ links.newsletter }}" method="POST" id="formNews" data-tray-tst="newsletter_form">
+                                <input type="hidden" name="loja" value="{{ store.id }}">
+                                <input name="name" type="text" placeholder="Digite seu nome" required>
+                                <input name="email" type="text" placeholder="Digite seu e-mail" required>
+                                <button class="btn btn-default btn-block news-button" data-tray-tst="newsletter_cadastrar">CADASTRAR</button>
+
+             
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+        
+            {% if utils.is_mobile %}
+                {% if pages.current == 'home' %} 
+                    {% if banner.extra5 %}
+                        {% if not banner.extra5.slides %}
+                            <div class="box-banner">
+                                <div class="banner banner-home {% if not settings.enable_banner_home %}mobile-off{% endif %}">
+                                    {{ banner.extra5 }}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div id="banner-home" class="owl-carousel owl-theme">
+                                {% for slide in banner.extra5.slides %}
+                                    <div class="item">
+                                        <a href="{{ slide.link }}">
+                                            <img src="{{ slide.image }}" alt="{{ slide.label}}">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %} 
+                    {% endif %}
+                {% endif %}
+            {% else %}
+                {% if pages.current == 'home' %} 
+                    {% if banner.home %} 
+                        {% if not banners.home.slides %}
+                            <div class="box-banner">
+                                <div class="banner banner-home {% if not settings.enable_banner_home %}mobile-off{% endif %}">
+                                    {{ banner.home }}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div id="banner-home" class="owl-carousel owl-theme">
+                                {% for slide in banners.home.slides %}
+                                    <div class="item">
+                                        <a href="{{ slide.link }}">
+                                            <img src="{{ slide.image }}" alt="{{ slide.label}}">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %} 
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
+            <div class="container">
+
+                {% if not utils.is_mobile and pages.current == 'home' %} 
+
+                    {% if banner.extra1 %}
+                        <div class="banner-tarja">
+                            {{ banner.extra1 }}
+                        </div>
+                    {% endif %}
+
+                    {% if banner.extra2 and banner.extra2 != '' %}
+                        <div class="row">
+                            <div class="col-xs-6 mini-banner">
+                                {{ banner.extra2 }}
+                            </div>
+                            <div class="col-xs-6 mini-banner">
+                                {{ banner.extra3 }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                {% endif %}
+                
+                <!-- BANNER CATEGORY !-->
+                {% if pages.current == 'catalog' %}
+                    {% if banner.title %}
+                        </div> <!-- Close container !-->
+
+                        <!--<div id="banner-category" class="banner banner-title {% if not settings.enable_banner_default %}mobile-off{% endif %}">
+                            {{ banner.title }}
+                        </div>-->
+
+                        <div class="container"> <!-- Open container !-->
+                    {% endif %}
+                {% endif %}
+                <!-- /BANNER CATEGORY !-->
+
+                <!-- BREADCRUMB !-->
+                {% if pages.current != 'home' %}
+                    {% element 'snippets/breadcrumb' %}
+                {% endif %}
+                <!-- /BREADCRUMB !-->
+
+                <div class="row">
+                    
+                    {% if pages.current == 'catalog' %}
+                    
+                        {% if "central" in pages.current %}
+                            {%  element 'sidebar-central' %}
+                        {% else %}
+                            {%  element 'sidebar-left' %}
+                        {% endif %}
+
+                        <section class="page-content col-xs-12 col-sm-12 col-md-9">
+                            {{ content_for_layout }}
+                        </section>
+                    {% else %}
+                        <section class="page-content col-xs-12">
+                            {{ content_for_layout }}
+                        </section>
+                    {% endif %}
+
+                </div>
+
+            </div>
+        </main>
+             
+        {% element 'footer' %}       
+                
+
+        <!-- tray -->
+        {% element 'snippets/modal' %}
+        {{ googleTagManager.bottom(pages.current, tagManagerData) }}
+        {{ tray.scripts }}
+        {{
+                html.script({
+                    '0' : tray.paths.js ~ 'dist/application.min.js?' ~ utils.assets_version,
+                    '1' : tray.paths.js ~ 'init.js?' ~ utils.assets_version
+                })
+        }}    
+        {% element 'snippets/pageview' %}
+        {{ store.chat }}
+        
+        {%  element 'trustvox-stars' %}
+         
+
+        <!-- theme scripts-->
+        <script src="https://use.fontawesome.com/af076ce73a.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+        
+        {% if pages.current == 'product' %}
+            <script type="text/javascript" src="{{ asset('js/flipclock.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/flipclock.min.js') }}"></script>
+            <link rel="stylesheet" href="{{ asset('js/flipclock.css') }}" type="text/css">
+        {% endif %}
+
+        <script type="text/javascript" src="{{ asset('js/ad-js.js') }}"></script>
+        
+        
+    </body>
+</html>
+{% endspaceless %}
+

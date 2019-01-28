@@ -1,0 +1,86 @@
+<div itemscope itemtype="http://schema.org/Product" class="product {{ product.has_other_prices ? ' has-other-prices' }}">
+    <a href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" data-tray-tst="vitrine_produto_link_imagem">
+        <div class="bandeiras">
+            {% set price = product.price_offer > 0 ? product.price_offer : product.price %}
+            {% if product.price_offer > 0 and product.show_price %}
+                {% set porcentagemDesconto = 100 - ( product.price_offer / product.price ) * 100 %}
+                {% if porcentagemDesconto < 100 %}
+                    {% if category.name == 'Papel de Parede' or category.parent == '1' %}
+                        <span class="discount3m">3M</span>
+                    {% else  %}
+                        <span class="discount">-{{ porcentagemDesconto|number_format }}%</span>
+                    {% endif %}
+                {% endif %}  
+            {% endif %}  
+            {% if products[0].free_shipping %}
+                <span class="free-shipping">Frete Grátis</span>
+            {% endif %}  
+        </div>
+
+        <div class="product-image">
+            {% if product.images %}
+                <img data-original="{{ product.images[0].large }}" class="img-reponsive" src="{{ product.images[0].large }}" alt="{{ product.name }}" title="{{ product.name }}">
+            {% else %}
+                <img src="{{ asset('img/no-image.svg') }}" alt="Nenhuma imagem foi cadastrada" width="100" title="{{ product.name }}">
+            {% endif %}
+            <div class="btn-buy">
+                <span>COMPRAR</span>
+            </div>
+        </div>
+    
+        <div class="info-product">
+            
+            <div class="product-name" itemprop="name">{{ product.name }}</div>
+            <!-- Trustvox -->
+            <div class="trustvox-showcase">
+              <div data-trustvox-product-code="{{ product.id }}"></div>
+            </div>
+            <!-- /Trustvox -->
+        
+            <div class="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+
+                {% set price = product.price_offer > 0 ? product.price_offer : product.price %}
+                {% if product.price_offer > 0 and product.show_price %}
+                    <span  class="price-offer">
+                        R$ {{ product.price|currency }}
+                    </span>
+                    <span itemprop="price" class="price" content="{{ product.price_offer }}">
+                        R$ {{ price|currency }}
+                    </span>
+                {% elseif product.price > 0 and product.show_price %}
+                    <span itemprop="price" class="price price-alone" content="{{ product.price_offer }}">
+                        R$ {{ price|currency }}
+                    </span>
+                {% endif %}
+
+                <span class="a-vista">{{ product.payment }}</span>
+
+                {% if settings.customers_waiting == 'true' %}
+                    <span class="consultar">teste</span>
+                {% endif %}
+
+                {{ product.upon_request }}
+
+                <meta itemprop="priceCurrency" content="BRL">
+
+            </div>
+
+        </div>
+    </a>
+    
+    {% if pages.current == 'catalog' and settings.compare %}
+    <div class="compare-buttons">
+        {% set compareCSS = 'compare-hidden' %}
+
+        <a data-compare="remove" href="{{ links.compare_delete ~ product.id }}" class="{{ not product.compare ? compareCSS }}">
+            <span class="filter-checkbox checked"></span>
+            {{ Translation("remover_comparar") }}
+        </a>
+        
+        <a data-compare="add" href="{{ links.compare_add  ~ product.id }}" class="{{ product.compare ? compareCSS }}">
+            <span class="filter-checkbox"></span>
+            {{ Translation("comparar_produto") }}
+        </a>
+    </div>
+    {% endif %}
+</div>

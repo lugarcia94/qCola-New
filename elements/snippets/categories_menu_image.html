@@ -1,0 +1,69 @@
+<ul class="nivel-um">
+    {% for category in categories %}
+        {% if loop.index <= limit or not limit %}
+        {% set children = category.children %}
+            {% if category.id == 1 or category.id == 3 or category.id == 131 or category.id == 87 or category.id == 303 %}
+			<li class="category-id-{{ category.id }} {% if children %}com-filho{% endif %}">
+				<a href="{{ category.link }}">
+					<i class="ad-icon ad-id-{{ category.id }}" aria-hidden="true"></i>
+					{{ category.name }}
+				</a>
+				{% if children %}
+					<ul class="nivel-dois">
+						<div class="category-submenu">
+							{% for child in children %}
+								<li>
+									<a href="{{ child.link }}">{{ child.name }}</a>
+								</li>
+							{% endfor %}
+						</div>
+						<figure class="category-submenu-image">
+							{% if category.images %}
+								<!--<img src="{{ category.images[0] }}" alt="{{ category.name }}">-->      
+							{% else %}
+								<!--<img src="{{ asset('img/banner-menu.png') }}" alt="{{ category.name }}">-->
+							{% endif %}
+						</figure>
+					</ul>
+				{% endif %}
+			</li>
+			{% endif %}
+        {% endif %}
+    {% endfor %}
+</ul>
+<div class="remove-todas hide">
+    <ul>
+        <li class="todas-categorias hide">
+            <i class="ad-icon ad-todas" aria-hidden="true"></i>
+            <span>Todas as Categorias</span>
+            <ul class="nivel-dois-todas">
+                {% for category in categories %}
+                    {% if loop.index <= limit or not limit %}
+                    {% set children = category.children %}
+                    <li class="category-id-{{ category.id }} {% if children %}com-filho{% endif %}">
+                        <a href="{{ category.link }}">{{ category.name }}</a>
+                        {% if children %}
+                            <ul class="nivel-dois">
+                                <div class="category-submenu">
+                                    {% for child in children %}
+                                        <li>
+                                            <a href="{{ child.link }}">{{ child.name }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </div>
+                                <figure class="category-submenu-image">
+                                    {% if category.images %}
+                                        <!--<img src="{{ category.images[0] }}" alt="{{ category.name }}">-->      
+                                    {% else %}
+                                       <!-- <img src="{{ asset('img/banner-menu.png') }}" alt="{{ category.name }}">-->
+                                    {% endif %}
+                                </figure>
+                            </ul>
+                        {% endif %}
+                    </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+</div>

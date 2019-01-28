@@ -1,0 +1,81 @@
+<header id="header">
+    <div style="background:#dc0404; color:#ffffff; text-align:center">
+        <div class="container">
+            <p style="font-size:14px; color:#fdfd02">Utilize o cupom CHAT20</b> e obtenha 20% de DESCONTO!</p>
+        <p style="font-size:12px">FRETE GRÁTIS nas compras acima de R$ 150,00 p/ regiões Sul e Sudeste.</p>
+        </div>
+    </div>
+    <div class="up-top">
+        <div class="container">
+
+            <div class="contacts pull-left">
+                <ul class="list-inline">
+                    {% if Translation('ag_telefone_1') != '' %}
+                        <li><i class="ad-icon ad-phone"></i>{{ Translation('ag_telefone_1') }} | WhatsApp (11) 96420-3934</li>
+                    {% endif %}
+                    {% if Translation('ag_atendimento') != '' %}
+                        <li class="atendimento" data-tray-tst="horario_atendimento">{{ Translation('ag_atendimento') }}</li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="social pull-right">
+            {% element 'snippets/social-list' %}
+            <a href="http://blog.qcola.com.br/" target="_blank" class="alinha-blog">
+            <img src="https://uploaddeimagens.com.br/images/001/847/656/full/blo_normal.jpg?1548093587">
+            </a>
+                
+               
+                
+            </div>
+
+        </div>    
+    </div>
+    <div class="main-top">
+        <div class="container">
+
+            <div class="brand pull-left">
+                <a href="{{ links.home }}" data-tray-tst="logotipo_loja">
+                    <img src="{{ asset('img/theme/marca.png') }}" alt="Marca" >
+                </a>
+            </div>
+            <div class="options-topo pull-right">
+                <ul class="list-inline">
+                    <li class="help">
+                        <a href="{{ links.contact }}" title="Dúvidas">
+                            <i class="ad-icon ad-help"></i>
+                            <span>Dúvidas</span>
+                        </a>
+                    </li>
+                    <li class="login" title="Login/Logout">
+                        <i class="ad-icon ad-user"></i>
+                        <span class="tray-hide" data-logged-user="true">
+                            Olá, <span data-customer="name"></span>! <i class="fa fa-angle-down" aria-hidden="true"></i>
+                            <ul>
+                                <li><a href="{{ links.account }}">Minha Conta</a></li>
+                                <li><a href="{{ links.orders }}">Meus Pedidos</a></li>
+                                <li><a href="{{ links.account }}">Lista de Desejos</a></li>
+                                <li class="logout"><a href="{{ links.logout }}">{{ Translation('sair') }}</a></li></li>
+                            </ul>
+                        </span>
+                        <span class="tray-hide" data-logged-user="false">
+                            Olá, Visitante! <i class="fa fa-angle-down" aria-hidden="true"></i>
+                            <ul>
+                                <li><a href="{{ links.login }}" data-tray-tst="login" class="{{ utils.is_https ? 'modal-login' }}">{{ Translation('login') }}</a></li>
+                                <li><a href="{{ links.register }}" data-tray-tst="cadastro">{{ Translation('cadastre_se') }}</a></li>
+                            </ul>
+                        </span>
+                    </li>
+                    <li class="cart" title="Carrinho">{% element 'snippets/cart' %}</li>
+                </ul>
+            </div>
+            {% element 'snippets/search' %}
+
+        </div>
+    </div>
+</header><!-- /header -->
+
+<div class="menu superior" style="opacity: 0;"> 
+    <div class="container">    
+        {% element 'snippets/categories_menu_image' %}
+    </div>
+</div>

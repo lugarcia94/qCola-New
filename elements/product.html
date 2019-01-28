@@ -1,0 +1,224 @@
+{% element 'schema/product' {'product': product} %}
+<section id="product-container" class="produto-wrapper product-detail" itemscope itemtype="http://schema.org/Product">
+    <div class="clearfix">
+
+        <div class="row">
+            
+            <ul id="product-thumbs" class="col-md-1"></ul>
+            <div id="product-main-image" class="col-md-6"></div>
+
+            <div class="hidden">
+                {% if product.images %}
+                    <div id="visualBlock" class="product-gallery {{ product.images|length  <= 1 and not product.video ? 'hide-carousel' }}">
+                        {{ productHelper.gallery() }}
+                    </div>
+                {% else %}
+                    <div class="product-gallery no-image">
+                        <img src="{{ asset('img/no-image.svg') }}" alt="Nenhuma imagem foi cadastrada">
+                    </div>
+                {% endif %}
+                
+                {% if settings.social_position == 0 %}
+                    <div class="product-social sidepicture">
+                        {{ productHelper.social() }}
+                    </div>
+                {% endif %} 
+                
+                <div class="product-labels">
+                    {{ productHelper.labels() }} 
+                </div>
+                
+            </div>
+            
+            <div class="col-md-5 product-colum-right">
+                {% if productHelper.banner() %}{{ productHelper.banner() }}{% endif %}
+                
+                <h1 class="product-title" itemprop="name">{{ product.name }}</h1>
+                <!-- Trustvox -->
+                <div class="trustvox-rating">
+                   <div class="trustvox-fluid-jump trustvox-widget-rating" id="trustvox-reviews">
+                      <div class="trustvox-shelf-container" data-trustvox-product-code-js="{{ product.id }}" data-trustvox-display-rate-schema="true"></div>
+                      <span class="rating-click-here">Clique e veja!</span>
+                   </div>
+                </div>
+                <!-- /Trustvox -->
+                {% element 'product/rating' %}
+                
+                <strong class="product-model">{{ product.model }}</strong>
+                
+                <hr/>
+
+                
+                <form id="form_comprar" method="post" data-app="product.buy-form" action="{{ links.cart_add ~ product.id }}">
+                    
+                    {{ productHelper.variants() }}
+					{{ product.additional_information }}
+                    {{ productHelper.pricing() }}
+                    
+                    
+                    <div class="box-product-calculator hide">
+                        <div>
+                            <p>Preencha suas medidas</p>
+                            <label class="altura">
+                                Altura em metros:
+                                <input type="number" />
+                            </label>
+                            
+                            <label class="largura">
+                                Largura em metros:
+                                <input type="number" />
+                            </label>
+                            
+                            <span class="error">Preencha apenas com números!</span>
+                        </div>
+                        <div>
+                            <label class="area-total">
+                                Área total: <strong class="ad-area-total"></strong>
+                            </label>
+                            <label class="num-rolos">
+                                Número de rolos: <strong class="ad-num-rolos"></strong>
+                            </label>
+                            <label class="preco-final">
+                                Preço final: <strong class="ad-total"></strong>
+                            </label>
+                        </div>
+                        
+                        <div class="clearfix"></div>
+                    </div>
+                    
+                    {{ productHelper.gifts() }}
+                    <div id="product-form-box">
+                        {% element('snippets/botoes_qty') %}
+                    </div>
+                    {% if not product.upon_request and product.available %}
+                        {{ productHelper.wishlist() }}
+                    {% endif %}
+                    
+                    {% if product.additional_message %}
+                    <div class="additional-message">
+                        {{ product.additional_message }}
+                    </div>
+                    {% endif %}
+                </form>
+                
+                {% for category in categories %}
+                    {% if category.name == 'Papel de Parede' %}
+                        {% for child in category.children %}
+                            {% if child.id == product.category_id %}
+                <div class="div_3m">
+                    <p class="tit_3m">3M</p>
+                    <p>Papel de Parede fabricado com <b>adesivo 3M</b>*</p>
+                    <p class="prazo_3m">* Somente nas compras feitas a partir do dia 25/09/2018</p>
+                </div>
+                            {% endif %}
+                        {% endfor %}
+                   {% endif %}
+                {% endfor %}
+
+                {% if settings.social_position == 1 %}
+                    <div class="product-social">
+                        {{ productHelper.social() }}
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="ProdBlock" class="product-tabs">
+    <a name="formaPagto"></a>
+    <!-- <div id="ProdAbas" class="abasProduto tab-panel">
+        <ul class="clearfix">
+            {% for key, tab in productTabs %}
+              {% if tab.container_id %}
+              <li id="{{ tab.id }}" {% if key=='description' %}class="aberta" {% endif %}>
+                <a href="#" data-tab-container-id="{{ tab.container_id }}" data-tab-url="{{ tab.url }}">{{ tab.description }}</a>
+              </li>
+              {% endif %}
+            {% endfor %}
+        </ul>
+    </div> 
+    
+    <div class="promo_desc">
+        <a href="/promocao-dia-das-criancas" title="Promoção Dia das Crianças"><img src="https://static3.tcdn.com.br/580806/themes/111/img/promocao_crianca.png" alt="Promoção Dia das Crianças"></a>
+    </div>-->
+
+    <div id="descricao">
+        <div class="board">
+            <div class="board_htm description">
+                {{ product.description ? product.description : product.description_small }}
+            </div>
+        </div>
+    </div>
+
+    <!-- <div id="itensInclusos">
+        <div class="board">
+            {{ product.included_items }}
+        </div>
+    </div>
+
+    <div id="coments">
+        <div class="board">
+            {% element 'product/comments' %}
+        </div>
+    </div>
+
+    <div id="caracteristicas">
+        <div class='board'>
+            {% element 'product/properties' %}
+        </div>
+    </div>
+
+    {{ productTabs.custom.content }}
+    {{ productTabs.downloads.content }} -->
+
+    <!-- <div id="garantia">
+        <img class="loader" src="{{ tray.paths.system_image }}/big-loading.svg"  />
+    </div>
+    <div data-app="product.payment-methods" id="formasPagto" class="prodBox"  ></div> -->
+    
+    
+</section>
+
+
+
+<div class="modal fade" id="modalCalc" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="{{ asset('img/theme/atencao-ico.svg') }}" alt="atenção" />
+                <strong>ATENÇÃO</strong>
+                <p>A quantidade de rolos pode ser alterada no carrinho.</p>
+                <button>IR PARA O CARRINHO</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Trustvox -->
+<div class="trustvox-container">
+  <h3 id="trustvox-reviews">Pergunte e veja opiniões de quem já comprou.</h3>
+  <div id="_trustvox_widget"></div>
+</div>
+<!-- /Trustvox -->
+
+{% if productHelper.bundle() %}
+<div id="compreJunto">
+    {{ productHelper.bundle() }}
+</div>
+{% endif %}
+
+{% if product.related_products %}
+<div id="prognoos_lsi"></div>
+<section class="products-related">
+    <h4>{{ Translation('confira_tambem') }}</h4>
+    <h3 class="related-title">{{ Translation('produtos_relacionados') }}</h3>
+    <div class="row">
+        {% for related in product.related_products %}
+            <div class="col-sm-3">
+                {% element 'snippets/product' {"product": related} %}
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}

@@ -1,0 +1,9 @@
+<section data-tray-tst="newsletter_box">
+	<img src="{{ asset('img/theme/qcolanews.png') }}" alt="qCola News" />
+    <p>Cadastre-se e receba ofertas exclusivas</br>em primeira mão.</p>
+    <form action="{{ links.newsletter }}" method="post" name="newsletter" data-tray-tst="newsletter_form">
+        <input name="name" type="text" value="Email Rodape" class="hide" required>
+        <input name="email" type="email" placeholder="Digite seu e-mail" data-tray-tst="newsletter_email" required>
+        <button data-tray-tst="newsletter_cadastrar">OK</button>
+    </form>
+</section>
