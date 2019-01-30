@@ -4342,6 +4342,9 @@ span.btn-close {
   max-width: 30%;
 }
 
+.page-product main.site-main > .container {
+  z-index: inherit!important;
+}
 
 .modal__item-foto img{ 
     width: 100%!important;
