@@ -128,6 +128,9 @@
                     <div id="product-form-box">
                         {% element('snippets/botoes_qty') %}
                     </div>
+
+
+
                     {% if not product.upon_request and product.available %}
                         {{ productHelper.wishlist() }}
                     {% endif %}
@@ -138,7 +141,15 @@
                     </div>
                     {% endif %}
                 </form>
-                
+                <div class="product__shipping">
+                    <form id="product__shipping-form" action="">
+                        {{ productHelper.shipping() }}
+                    </form>
+                    <!-- Divs usadas para exibir frete em bloco -->
+                        <div id="frete__block">
+                            <span id="erro__retorno"></span>
+                        </div>
+                </div>
                  <div class="product-social sidepicture">
                     {{ productHelper.social() }}
                 </div>

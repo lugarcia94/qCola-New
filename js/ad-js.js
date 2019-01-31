@@ -5,7 +5,7 @@
 
 
 	$(document).ready( function(){
-
+		$('body').addClass('active__body');
 
 		$(document).on( 'click', '#header .main-top .options-topo .login', function(){ 
 			var $this = $(this); 
@@ -647,6 +647,7 @@
 	});
 
 	$(document).ready( function(){
+		
 		setTimeout(function(){ 
 		let foto = $('#product-main-image #wrap a img');
 		if ($('.page-product').length) {
@@ -673,6 +674,91 @@
 			$('body').removeClass('modal__promo');
 		});
 		}, 30000);
+
+		modalFrete();
+		function urlParameter(url, paramName, paramValue) {
+			let hash = location.hash;
+			url = url.replace(hash, '');
+		
+			if(typeof url !== 'string')
+				return url;
+		
+			if (url.indexOf(paramName + "=") >= 0) {
+				let prefix = url.substring(0, url.indexOf(paramName));
+				let suffix = url.substring(url.indexOf(paramName));
+				suffix = suffix.substring(suffix.indexOf("=") + 1);
+				suffix = (suffix.indexOf("&") >= 0) ? suffix.substring(suffix.indexOf("&")) : "";
+				url = prefix + paramName + "=" + paramValue + suffix;
+			} else {
+				if (url.indexOf("?") < 0)
+					url += "?" + paramName + "=" + paramValue;
+				else
+					url += "&" + paramName + "=" + paramValue;
+			}
+			return url + hash;
+		}
+	
+		function modalFrete() {
+			var button = jQuery("#shippingSimulatorButton");
+			var newbutton = jQuery("<button>");
+			newbutton
+				.text("Calcular")
+				.addClass("botao__frete");
+	
+			button.after(newbutton);
+	
+			function loadShipping() {
+				if(jQuery("#cep1").val() == null || jQuery("#cep1").val() == "" || jQuery("#cep2").val() == null || jQuery("#cep2").val() == ""){
+					document.getElementById("erro__retorno").innerHTML = "Preencha os campos corretamente.";
+				} else {
+					jQuery("body").addClass("load__frete");
+				}
+	
+				var url = button.attr("data-url");
+				if(jQuery("#cep1").val() == null || jQuery("#cep1").val() == "" || jQuery("#cep2").val() == null || jQuery("#cep2").val() == ""){
+					document.getElementById("erro__retorno").innerHTML = "Preencha os campos corretamente.";
+				} else { 
+	
+					var variacao = '';
+					if(jQuery('#selectedVariant').length) { variacao = jQuery('#selectedVariant').val(); }
+					
+					url = urlParameter(url, 'variacao', variacao);
+					url = urlParameter(url, 'cep1', jQuery("#cep1").val());
+					url = urlParameter(url, 'cep2', jQuery("#cep2").val());
+					url = urlParameter(url, 'quantidade', jQuery('.product__quantity__input').val() * 1);
+	
+					jQuery.get(url).then(function(data){ 
+						var dadosFull = data;
+						console.log(dadosFull);
+						document.getElementById("frete__block").innerHTML = dadosFull;
+						jQuery("body").removeClass("load__frete");
+					});
+				}
+			}
+	
+			newbutton.click(loadShipping);
+	
+			jQuery('#cep2').on('keyup', function(evt){
+				var keycode = (evt.keyCode ? evt.keyCode : evt.which);
+				var value = jQuery(this).val();
+				if(value.length == 3)  {
+					jQuery('.botao__frete').focus();
+				}
+				if(keycode == '13'){
+					loadShipping();
+					evt.preventDefault();  
+				};
+				
+			});
+	
+			jQuery('#product__shipping-form').submit(function(evt){
+				loadShipping();
+				evt.preventDefault();
+			});
+		}
+	
+	
+	
 	});
 
 })(jQuery);
